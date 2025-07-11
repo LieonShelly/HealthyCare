@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=393, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>添加排尿记录</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- 页面标题 -->
+    <header class="page-title">添加排尿记录</header>
+
+    <!-- 尿量输入模块 -->
+    <section class="card volume-card">
+      <div class="input-row">
+        <div class="card-label">尿量</div>
+        <input type="number" class="volume-input" min="0" max="1000" step="1" placeholder="ml">
+      </div>
+      <div class="quick-btns volume-quick-btns">
+        <button class="quick-btn" data-value="80">80</button>
+        <button class="quick-btn" data-value="150">150</button>
+        <button class="quick-btn" data-value="200">200</button>
+        <button class="quick-btn" data-value="250">250</button>
+        <button class="quick-btn" data-value="300">300</button>
+      </div>
+    </section>
+
+    <!-- 持续时间输入模块 -->
+    <section class="card duration-card">
+      <div class="input-row">
+        <div class="card-label">持续时间</div>
+        <input type="number" class="duration-input" min="0" placeholder="">
+      </div>
+      <div class="quick-btns duration-quick-btns">
+        <button class="quick-btn" data-value="8">8秒</button>
+        <button class="quick-btn" data-value="12">12秒</button>
+        <button class="quick-btn" data-value="18">18秒</button>
+        <button class="quick-btn" data-value="25">25秒</button>
+      </div>
+    </section>
+
+    <!-- 尿液颜色模块 -->
+    <section class="card color-card">
+      <div class="card-label">颜色</div>
+      <div class="color-options">
+        <label class="color-radio"><input type="radio" name="pee-color" checked><span class="color-circle color-clear"></span>透明</label>
+        <label class="color-radio"><input type="radio" name="pee-color"><span class="color-circle color-light"></span>淡黄</label>
+        <label class="color-radio"><input type="radio" name="pee-color"><span class="color-circle color-yellow"></span>黄色</label>
+        <label class="color-radio"><input type="radio" name="pee-color"><span class="color-circle color-red"></span>黄红</label>
+      </div>
+    </section>
+
+    <!-- 排尿压力输入模块 -->
+    <section class="card pressure-card">
+      <div class="card-label">排尿压力</div>
+      <div class="pressure-options">
+        <label class="pressure-radio pressure-none"><input type="radio" name="pressure" checked>无</label>
+        <label class="pressure-radio pressure-light"><input type="radio" name="pressure">轻度</label>
+        <label class="pressure-radio pressure-mid"><input type="radio" name="pressure">中度</label>
+        <label class="pressure-radio pressure-high"><input type="radio" name="pressure">重度</label>
+      </div>
+    </section>
+
+    <!-- 不适感输入模块（可选） -->
+    <section class="card discomfort-card">
+      <div class="card-label">排尿不适感 <span class="optional">可选</span></div>
+      <div class="discomfort-options">
+        <label class="discomfort-checkbox"><input type="checkbox">尿急</label>
+        <label class="discomfort-checkbox"><input type="checkbox">微痛</label>
+        <label class="discomfort-checkbox"><input type="checkbox">灼热</label>
+        <label class="discomfort-checkbox"><input type="checkbox">残尿感</label>
+        <label class="discomfort-checkbox"><input type="checkbox" checked>无</label>
+      </div>
+    </section>
+
+    <!-- 备注输入模块（可选） -->
+    <section class="card remark-card">
+      <div class="card-label">备注 <span class="optional">可选</span></div>
+      <div class="remark-row">
+        <input type="text" class="remark-input" placeholder="可记录当时的特别感受或饮水情况">
+        <button class="voice-btn" title="语音输入">🎤</button>
+      </div>
+    </section>
+
+    <!-- 主操作按钮 -->
+    <button class="main-btn record-btn">保存</button>
+  </div>
+
+  <script>
+  // 快捷按钮填充输入框
+  window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.volume-quick-btns .quick-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelector('.volume-input').value = this.dataset.value;
+      });
+    });
+    document.querySelectorAll('.duration-quick-btns .quick-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelector('.duration-input').value = this.dataset.value;
+      });
+    });
+  });
+  </script>
+</body>
+</html> 

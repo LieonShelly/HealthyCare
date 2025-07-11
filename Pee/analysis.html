@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=393, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>排尿趋势分析</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div class="container analysis-container">
+    <!-- 顶部标题与时间范围切换 -->
+    <header class="analysis-header">
+      <div class="analysis-title">📊 排尿趋势分析</div>
+      <div class="range-switch">
+        <button class="range-btn selected">7天</button>
+        <button class="range-btn">30天</button>
+        <button class="range-btn">90天</button>
+      </div>
+    </header>
+
+    <!-- 图表卡片区 -->
+    <section class="card chart-card">
+      <div class="chart-title">排尿次数趋势</div>
+      <div class="chart-area" id="chart-pee-count"></div>
+    </section>
+    <section class="card chart-card">
+      <div class="chart-title">总尿量变化</div>
+      <div class="chart-area" id="chart-volume"></div>
+    </section>
+    <section class="card chart-card">
+      <div class="chart-title">夜尿次数趋势</div>
+      <div class="chart-area" id="chart-night-count"></div>
+    </section>
+    <section class="card chart-card">
+      <div class="chart-title">压力评分变化</div>
+      <div class="chart-area" id="chart-pressure"></div>
+    </section>
+    <section class="card chart-card">
+      <div class="chart-title">不适感频率</div>
+      <div class="chart-area" id="chart-discomfort"></div>
+    </section>
+
+    <!-- AI建议/健康提醒 -->
+    <div class="ai-advice">夜尿次数持续偏高，建议减少晚间饮水或就医咨询</div>
+  </div>
+  <script>
+    // 示例数据
+    const days = ['7/1','7/2','7/3','7/4','7/5','7/6','7/7'];
+    // 1. 排尿次数趋势
+    const peeCount = [8, 9, 7, 13, 10, 8, 6];
+    // 2. 总尿量变化（白天/夜间）
+    const volumeDay = [900, 1100, 850, 1200, 950, 1000, 800];
+    const volumeNight = [200, 180, 220, 300, 250, 210, 190];
+    // 3. 夜尿次数
+    const nightCount = [1, 2, 1, 3, 2, 1, 1];
+    // 4. 压力评分
+    const pressure = [2, 2.5, 3, 4, 3.5, 2, 2];
+    // 5. 不适感频率（0~1）
+    const discomfort = [0.1, 0.2, 0.05, 0.4, 0.3, 0.1, 0.05];
+
+    // 1. 排尿次数趋势（折线图，异常红点）
+    const peeCountChart = echarts.init(document.getElementById('chart-pee-count'));
+    peeCountChart.setOption({
+      grid: {left: 30, right: 20, top: 30, bottom: 30},
+      xAxis: { type: 'category', data: days, axisLine: {lineStyle:{color:'#e0e6ef'}}, axisTick:{show:false} },
+      yAxis: { type: 'value', min: 0, axisLine: {show:false}, splitLine:{lineStyle:{color:'#e0e6ef'}} },
+      series: [{
+        data: peeCount,
+        type: 'line',
+        smooth: true,
+        symbolSize: 10,
+        itemStyle: { color: '#2a5dbe' },
+        lineStyle: { width: 3, color: '#2a5dbe' },
+        markPoint: {
+          data: peeCount.map((v,i)=>v>12?{coord:[days[i],v]}:null).filter(Boolean),
+          symbol: 'circle',
+          symbolSize: 14,
+          itemStyle: { color: '#e64a2a', borderColor:'#fff', borderWidth:2 }
+        },
+        label: { show: true, position: 'top', color: '#2a5dbe', fontSize: 12 }
+      }]
+    });
+
+    // 2. 总尿量变化（堆叠柱状图）
+    const volumeChart = echarts.init(document.getElementById('chart-volume'));
+    volumeChart.setOption({
+      grid: {left: 30, right: 20, top: 30, bottom: 30},
+      tooltip: { trigger: 'axis' },
+      legend: { data: ['白天', '夜间'], top: 4, right: 10, textStyle:{fontSize:12} },
+      xAxis: { type: 'category', data: days, axisLine: {lineStyle:{color:'#e0e6ef'}}, axisTick:{show:false} },
+      yAxis: { type: 'value', min: 0, axisLine: {show:false}, splitLine:{lineStyle:{color:'#e0e6ef'}} },
+      series: [
+        { name: '白天', type: 'bar', stack: 'total', data: volumeDay, itemStyle: {color:'#2a5dbe'} },
+        { name: '夜间', type: 'bar', stack: 'total', data: volumeNight, itemStyle: {color:'#3edfa6'} }
+      ]
+    });
+
+    // 3. 夜尿次数趋势（柱状图，>2高亮）
+    const nightCountChart = echarts.init(document.getElementById('chart-night-count'));
+    nightCountChart.setOption({
+      grid: {left: 30, right: 20, top: 30, bottom: 30},
+      xAxis: { type: 'category', data: days, axisLine: {lineStyle:{color:'#e0e6ef'}}, axisTick:{show:false} },
+      yAxis: { type: 'value', min: 0, axisLine: {show:false}, splitLine:{lineStyle:{color:'#e0e6ef'}} },
+      series: [{
+        data: nightCount,
+        type: 'bar',
+        itemStyle: {
+          color: function(params){ return params.value>2?'#e64a2a':'#2a5dbe'; }
+        },
+        label: { show: true, position: 'top', color: '#2a5dbe', fontSize: 12 }
+      }]
+    });
+
+    // 4. 压力评分变化（平滑折线）
+    const pressureChart = echarts.init(document.getElementById('chart-pressure'));
+    pressureChart.setOption({
+      grid: {left: 30, right: 20, top: 30, bottom: 30},
+      xAxis: { type: 'category', data: days, axisLine: {lineStyle:{color:'#e0e6ef'}}, axisTick:{show:false} },
+      yAxis: { type: 'value', min: 1, max: 5, axisLine: {show:false}, splitLine:{lineStyle:{color:'#e0e6ef'}} },
+      series: [{
+        data: pressure,
+        type: 'line',
+        smooth: true,
+        symbolSize: 10,
+        itemStyle: { color: '#3edfa6' },
+        lineStyle: { width: 3, color: '#3edfa6' },
+        label: { show: true, position: 'top', color: '#3edfa6', fontSize: 12 }
+      }]
+    });
+
+    // 5. 不适感频率（热力图）
+    const discomfortChart = echarts.init(document.getElementById('chart-discomfort'));
+    discomfortChart.setOption({
+      grid: {left: 30, right: 20, top: 30, bottom: 30},
+      xAxis: { type: 'category', data: days, axisLine: {lineStyle:{color:'#e0e6ef'}}, axisTick:{show:false} },
+      yAxis: { type: 'category', data: ['不适感频率'], axisLine: {show:false}, axisTick:{show:false} },
+      visualMap: {
+        min: 0, max: 0.5, show: false,
+        inRange: { color: ['#e6f0ff','#2a5dbe'] }
+      },
+      series: [{
+        name: '不适感',
+        type: 'heatmap',
+        data: discomfort.map((v,i)=>[i,0,v]),
+        label: { show: true, formatter: p=>p.data[2]>0?Math.round(p.data[2]*100)+'%':'' },
+        emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(0,0,0,0.2)' } }
+      }]
+    });
+  </script>
+</body>
+</html> 
