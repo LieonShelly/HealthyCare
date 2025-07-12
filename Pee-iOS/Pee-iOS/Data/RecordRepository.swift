@@ -5,45 +5,57 @@
 //  Created by Renjun Li on 2025/7/10.
 //
 
-import SwiftData
 import RealmSwift
+import Foundation
 
-@MainActor
-class RecordRepository: @unchecked Sendable {
+class RecordRepository {
     
-    func fetchRecods(
-        context: ModelContext,
-        predicate: Predicate<Record>? = nil,
-        sort: [SortDescriptor<Record>] = []
-    ) async throws -> [RecordModel] {
-        let dataTask: Task<[RecordModel], any Error> =  Task.detached {
-            var decscriptor = FetchDescriptor<Record>(predicate: predicate, sortBy: sort)
-            decscriptor.fetchLimit = 20
-            let data = try context.fetch(decscriptor)
+    func fetchRecods() async throws -> [RecordModel] {
+        let dataTask: Task<[RecordModel], any Error> = Task.detached {
+            logThread()
+            let realm = try Realm()
+            let data = realm.objects(Record.self)
+                .sorted(by: { $0.date > $1.date })
+                .prefix(20)
                 .map {
                     RecordModel(id: $0.id,
                                 date: $0.date,
                                 amount: $0.amount,
                                 duration: $0.duration,
-                                color: $0.color,
-                                comfortDegress: $0.comfortDegress,
-                                presureDegress: $0.presureDegress,
+                                color: ColorDegree(rawValue: $0.color ?? 0) ?? .normal,
+                                comfortDegress: ComfortDegree(rawValue: $0.comfortDegress ?? 0) ?? .normal,
+                                presureDegress: PresureDegree(rawValue: $0.presureDegress ?? 0) ?? .normal,
                                 note: $0.note)
                 }
-            return data
+            return data.map { $0 }
         }
         return try await dataTask.value
     }
     
-    func add(record: Record, context: ModelContext) throws {
-        context.insert(record)
-        try context.save()
-       
+    func add(record: RecordModel) async throws {
+        let dataTask: Task<Void, any Error> = Task.detached {
+            logThread()
+            let realm = try Realm()
+            let data = Record()
+            
+            data.update(id: record.id,
+                        date: record.date,
+                        amount: record.amount,
+                        duration: record.duration,
+                        color: record.color.rawValue,
+                        comfortDegress: record.comfortDegress.rawValue,
+                        presureDegress: record.presureDegress.rawValue,
+                        note: record.note)
+            try realm.write {
+                realm.add(data, update: .modified)
+            }
+            return
+        }
+        return try await dataTask.value
     }
-    
-    func syncAdd(_ record: Record) throws {
-        let context = ModelContext(SwiftDataContainer.shared.container)
-        context.insert(record)
-        try context.save()
-    }
+
+}
+
+func logThread() {
+    print(Thread.current)
 }

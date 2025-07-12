@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8337F1B2E20A898006FC08D /* SwiftDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F1A2E20A898006FC08D /* SwiftDataContainer.swift */; };
 		F8337F1E2E20BAE1006FC08D /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F1D2E20BAE1006FC08D /* RecordModel.swift */; };
 		F8337F202E20BC37006FC08D /* RecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F1F2E20BC37006FC08D /* RecordListViewModel.swift */; };
 		F8337F582E20DE30006FC08D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8337F572E20DE30006FC08D /* RealmSwift */; };
+		F8337F5D2E20EDD5006FC08D /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F5C2E20EDD5006FC08D /* DateExtensions.swift */; };
 		F8341DEB2E1FD53900328BF8 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE22E1FD53900328BF8 /* Record.swift */; };
 		F8341DEC2E1FD53900328BF8 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE32E1FD53900328BF8 /* RecordRepository.swift */; };
 		F8341DED2E1FD53900328BF8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE62E1FD53900328BF8 /* ContentView.swift */; };
@@ -19,6 +19,8 @@
 		F8341DF02E1FD53900328BF8 /* RecordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE92E1FD53900328BF8 /* RecordListView.swift */; };
 		F8341DF12E1FD53900328BF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8341DE52E1FD53900328BF8 /* Assets.xcassets */; };
 		F86F6B8B2E2005FB00D8BC3D /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */; };
+		F88F191B2E21F2BC00180E06 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F191A2E21F2BC00180E06 /* Route.swift */; };
+		F88F191D2E21F2C900180E06 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F191C2E21F2C900180E06 /* RecordCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,9 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F8337F1A2E20A898006FC08D /* SwiftDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataContainer.swift; sourceTree = "<group>"; };
 		F8337F1D2E20BAE1006FC08D /* RecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
 		F8337F1F2E20BC37006FC08D /* RecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewModel.swift; sourceTree = "<group>"; };
+		F8337F5C2E20EDD5006FC08D /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F8341DE22E1FD53900328BF8 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		F8341DE32E1FD53900328BF8 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		F8341DE52E1FD53900328BF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		F85CCF062E1E258300909F0A /* Pee-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pee-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85CCF102E1E258300909F0A /* Pee-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pee-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
+		F88F191A2E21F2BC00180E06 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		F88F191C2E21F2C900180E06 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -102,10 +106,51 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F8337F592E20EA2B006FC08D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F8341DE62E1FD53900328BF8 /* ContentView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F8337F5A2E20EA37006FC08D /* RecordList */ = {
+			isa = PBXGroup;
+			children = (
+				F8341DF22E1FD53F00328BF8 /* ViewModel */,
+				F8341DE92E1FD53900328BF8 /* RecordListView.swift */,
+			);
+			path = RecordList;
+			sourceTree = "<group>";
+		};
+		F8337F5B2E20EDCD006FC08D /* Comon */ = {
+			isa = PBXGroup;
+			children = (
+				F8337F5C2E20EDD5006FC08D /* DateExtensions.swift */,
+			);
+			path = Comon;
+			sourceTree = "<group>";
+		};
+		F8337F5E2E20EFAD006FC08D /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				F8337F5F2E20EFB8006FC08D /* ViewModel */,
+				F8341DE82E1FD53900328BF8 /* RecordingView.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		F8337F5F2E20EFB8006FC08D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F8341DE42E1FD53900328BF8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				F8337F1A2E20A898006FC08D /* SwiftDataContainer.swift */,
 				F8341DE22E1FD53900328BF8 /* Record.swift */,
 				F8341DE32E1FD53900328BF8 /* RecordRepository.swift */,
 			);
@@ -115,14 +160,15 @@
 		F8341DEA2E1FD53900328BF8 /* Pee-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F88F19192E21F2B100180E06 /* Coordinator */,
+				F8337F5E2E20EFAD006FC08D /* Record */,
+				F8337F5B2E20EDCD006FC08D /* Comon */,
+				F8337F5A2E20EA37006FC08D /* RecordList */,
+				F8337F592E20EA2B006FC08D /* Home */,
 				F8337F1C2E20BA97006FC08D /* Model */,
-				F8341DF22E1FD53F00328BF8 /* ViewModel */,
 				F8341DE42E1FD53900328BF8 /* Data */,
 				F8341DE52E1FD53900328BF8 /* Assets.xcassets */,
-				F8341DE62E1FD53900328BF8 /* ContentView.swift */,
 				F8341DE72E1FD53900328BF8 /* Pee_iOSApp.swift */,
-				F8341DE82E1FD53900328BF8 /* RecordingView.swift */,
-				F8341DE92E1FD53900328BF8 /* RecordListView.swift */,
 			);
 			path = "Pee-iOS";
 			sourceTree = "<group>";
@@ -131,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				F8337F1F2E20BC37006FC08D /* RecordListViewModel.swift */,
-				F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -154,6 +199,15 @@
 				F85CCF102E1E258300909F0A /* Pee-iOSUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F88F19192E21F2B100180E06 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F88F191C2E21F2C900180E06 /* RecordCoordinator.swift */,
+				F88F191A2E21F2BC00180E06 /* Route.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,13 +357,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8341DEB2E1FD53900328BF8 /* Record.swift in Sources */,
+				F88F191D2E21F2C900180E06 /* RecordCoordinator.swift in Sources */,
 				F86F6B8B2E2005FB00D8BC3D /* RecordViewModel.swift in Sources */,
+				F88F191B2E21F2BC00180E06 /* Route.swift in Sources */,
 				F8337F1E2E20BAE1006FC08D /* RecordModel.swift in Sources */,
 				F8341DEC2E1FD53900328BF8 /* RecordRepository.swift in Sources */,
 				F8341DED2E1FD53900328BF8 /* ContentView.swift in Sources */,
+				F8337F5D2E20EDD5006FC08D /* DateExtensions.swift in Sources */,
 				F8337F202E20BC37006FC08D /* RecordListViewModel.swift in Sources */,
 				F8341DEE2E1FD53900328BF8 /* Pee_iOSApp.swift in Sources */,
-				F8337F1B2E20A898006FC08D /* SwiftDataContainer.swift in Sources */,
 				F8341DEF2E1FD53900328BF8 /* RecordingView.swift in Sources */,
 				F8341DF02E1FD53900328BF8 /* RecordListView.swift in Sources */,
 			);

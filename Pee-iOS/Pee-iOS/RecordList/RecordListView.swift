@@ -9,36 +9,48 @@ import SwiftUI
 import SwiftData
 
 struct RecordListView: View {
-//    @ObservedObject var viewModel: RecordListViewModel
-    @Environment(\.modelContext) var modelContext
+    @ObservedObject var viewModel: RecordListViewModel
+    @State var lastErrorMessage: String = ""
+    @State var showError: Bool = false
+    @EnvironmentObject var coordinator: RecordCoordinator
     
-    @Query var list: [Record] = []
-    
-//    init(viewModel: RecordListViewModel) {
-//        self.viewModel = viewModel
-//    }
+    init(viewModel: RecordListViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.backgroundPage.ignoresSafeArea()
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        ForEach(list, id: \.id) { record in
-                            item(record)
-                        }
+        ZStack {
+            Color.backgroundPage.ignoresSafeArea()
+            ScrollView {
+                LazyVStack(spacing: 20) {
+                    ForEach(viewModel.list, id: \.id) { record in
+                        item(record)
                     }
-                    .padding(.horizontal, 20)
                 }
-                .navigationTitle("排尿记录")
-                .navigationBarTitleDisplayMode(.large)
+                .padding(.horizontal, 20)
             }
+            .onAppear(perform: {
+            })
+            .task {
+                do {
+                    try await viewModel.fetch()
+                } catch {
+                    lastErrorMessage = error.localizedDescription
+                }
+            }
+            .navigationTitle("排尿记录")
+            .navigationBarTitleDisplayMode(.large)
+            .alert("Error", isPresented: $showError, actions: {
+                Button("CLose", role: .cancel) {}
+            }, message: {
+                Text(lastErrorMessage)
+            })
         }
     }
     
-    func item(_ record: Record) -> some View {
+    func item(_ record: RecordModel) -> some View {
         VStack(alignment: .leading, spacing: .zero) {
-       
+            
             Text(record.date.hhmm)
                 .font(.body)
                 .foregroundStyle(.appPrimary)
@@ -56,9 +68,9 @@ struct RecordListView: View {
                 .padding(.leading, 12)
             }
             HStack {
-                Text("压力: 正常").font(.callout.weight(.medium)).foregroundStyle(.textThird)
+                Text("压力: \(record.presureDegress.desc)").font(.callout.weight(.medium)).foregroundStyle(.textThird)
                 Spacer()
-                Text("不适感: 正常").font(.callout.weight(.medium)).foregroundStyle(.textThird)
+                Text("不适感: \(record.comfortDegress.desc)").font(.callout.weight(.medium)).foregroundStyle(.textThird)
                 Spacer()
                 Button(action: {}) {
                     Text("更多")
@@ -79,18 +91,9 @@ struct RecordListView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.backgroundCard)
         )
+        .onTapGesture {
+            coordinator.push(RecordRoute.recording(nil))
+        }
     }
     
 }
-
-import Foundation
-
-extension Date {
-    
-    var hhmm: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
-       return dateFormatter.string(from: self)
-    }
-}
-

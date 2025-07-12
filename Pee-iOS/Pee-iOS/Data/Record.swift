@@ -6,20 +6,26 @@
 //
 
 import SwiftData
+import RealmSwift
 import Foundation
 
-@Model
-final class Record {
-    var id: UUID = UUID()
-    var date: Date
-    var amount: Double
-    var duration: Double
-    var color: Int?
-    var comfortDegress: Int?
-    var presureDegress: Int?
-    var note: String?
+class Record: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var id: UUID = UUID()
+    @Persisted var date: Date
+    @Persisted var amount: Double
+    @Persisted var duration: Double
+    @Persisted var color: Int?
+    @Persisted var comfortDegress: Int?
+    @Persisted var presureDegress: Int?
+    @Persisted var note: String?
     
-    init(
+    override init() {
+        super.init()
+    }
+    
+    
+    func update(
+        id: UUID = UUID(),
         date: Date,
         amount: Double,
         duration: Double,
@@ -35,5 +41,6 @@ final class Record {
         self.comfortDegress = comfortDegress
         self.presureDegress = presureDegress
         self.note = note
+        self.id = id
     }
 }

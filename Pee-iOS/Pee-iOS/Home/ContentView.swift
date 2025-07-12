@@ -10,42 +10,41 @@ import SwiftData
 
 struct ContentView: View {
     @State private var showRecording: Bool = false
+    @State private var showList: Bool = false
     @StateObject private var viewModel: RecordViewModel
-    @Environment(\.modelContext) var context
+    @EnvironmentObject private var coordinator: RecordCoordinator
     
     init() {
         self._viewModel = .init(wrappedValue: .init(repository: RecordRepository()))
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Color.backgroundPage.ignoresSafeArea()
-            ScrollView {
-                VStack(spacing: .zero) {
-                    todayReview
+        NavigationStack(path: $coordinator.path)  {
+            ZStack(alignment: .bottom) {
+                Color.backgroundPage.ignoresSafeArea()
+                ScrollView {
+                    VStack(spacing: .zero) {
+                        todayReview
+                    }
+                    .padding(.top, 20)
+                    .padding(.horizontal, 20)
                 }
-                .padding(.top, 20)
-                .padding(.horizontal, 20)
+                addBtn
+                Rectangle()
+                    .fill(.textPrimary)
+                    .frame(width: 50, height: 50)
+                    .rotationEffect(viewModel.isLoading ? .degrees(0) : .degrees(100))
+                    .opacity(viewModel.showLoading ? 1 : 0)
+              
             }
-            addBtn
-            Rectangle()
-                .fill(.textPrimary)
-                .frame(width: 50, height: 50)
-                .rotationEffect(viewModel.isLoading ? .degrees(0) : .degrees(100))
-                .opacity(viewModel.showLoading ? 1 : 0)
-          
+            .animation(.easeInOut.repeatForever(autoreverses: true), value: viewModel.isLoading)
+            .sheet(item: $coordinator.modal) { route in
+                coordinator.view(for: route)
+            }
+            .navigationDestination(for: RecordRoute.self) { route in
+                coordinator.view(for: route)
+            }
         }
-        .animation(.easeInOut.repeatForever(autoreverses: true), value: viewModel.isLoading)
-        .onAppear(perform: {
-       
-        })
-        .task {
-            await  viewModel.fetch(context: context)
-        }
-        .sheet(isPresented: $showRecording) {
-            RecordListView()
-        }
-      
     }
     
     var todayReview: some View {
@@ -65,6 +64,9 @@ struct ContentView: View {
                 Text("今日概况")
                     .font(.largeTitle.weight(.bold))
                     .foregroundStyle(Color.textPrimary)
+                    .onTapGesture {
+                        coordinator.push(RecordRoute.recordList)
+                    }
 
                 Text("距离上次排尿: 1小时20分")
                     .font(.callout)
@@ -77,14 +79,7 @@ struct ContentView: View {
     
     var addBtn: some View {
         Button {
-            for _ in 0 ..< 10 {
-                let record = Record(date: .now, amount: 200, duration: 20, color: 0, comfortDegress: 0, presureDegress: 0, note: "It's ok now")
-                context.insert(record)
-            }
-            try? context.save()
-            
-            showRecording = true
-           
+            coordinator.present(RecordRoute.recording(nil))
         } label: {
             RoundedRectangle(cornerRadius: 25)
                 .fill(Color.appPrimary)
