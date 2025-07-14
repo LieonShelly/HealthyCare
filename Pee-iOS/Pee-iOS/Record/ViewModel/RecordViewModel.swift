@@ -11,6 +11,7 @@ import Foundation
 
 final class RecordViewModel: ObservableObject {
     let repository: RecordRepository
+    @Published var isEnable: Bool = false
     @Published var isLoading: Bool = false
     @Published var showLoading: Bool = false
     @Published var amoutInput: String = ""
@@ -20,9 +21,15 @@ final class RecordViewModel: ObservableObject {
     @Published var presure: PresureDegree = .normal
     @Published var comfort: ComfortDegree = .normal
     @Published var date: Date = .now
+    private var cancellables: Set<AnyCancellable> = .init()
     
     init( repository: RecordRepository) {
         self.repository = repository
+        
+        Publishers.CombineLatest($amoutInput.dropFirst().map { !$0.isEmpty }, $duration.dropFirst().map { !$0.isEmpty})
+            .map { $0 && $1 }
+            .assign(to: \.isEnable, on: self)
+            .store(in: &cancellables)
     }
     
     deinit {

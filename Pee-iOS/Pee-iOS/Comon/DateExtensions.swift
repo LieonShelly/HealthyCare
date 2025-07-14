@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+extension Date: Comparable {
     
     var hhmm: String {
         let dateFormatter = DateFormatter()
@@ -25,12 +25,36 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
     }
     
+    var startOfToday: Date {
+         let calendar = Calendar.current
+        return calendar.startOfDay(for: self)
+     }
+     
+    var endOfToday: Date {
+         return Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
+     }
+    
     var formattedDuration: String {
         let intervals = Date().timeIntervalSince1970 - self.timeIntervalSince1970
        return RecordFormatter.formattedDuration(intervals)
     }
+    
+    static func <= (lhs: Self, rhs: Self) -> Bool {
+        return lhs.timeIntervalSince1970 <= rhs.timeIntervalSince1970
+    }
+    
+    static func >= (lhs: Self, rhs: Self) -> Bool {
+        return lhs.timeIntervalSince1970 >= rhs.timeIntervalSince1970
+    }
+    
+    static func > (lhs: Self, rhs: Self) -> Bool {
+        return lhs.timeIntervalSince1970 > rhs.timeIntervalSince1970
+    }
+    
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.timeIntervalSince1970 < rhs.timeIntervalSince1970
+    }
 }
-
 
 struct RecordFormatter {
     

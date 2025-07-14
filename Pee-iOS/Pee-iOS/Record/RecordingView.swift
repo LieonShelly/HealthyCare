@@ -189,19 +189,21 @@ struct RecordingView: View {
     var confirmBtn: some View {
         Button(action: {
             Task {
-//                try? await viewModel.submit()
+                try? await viewModel.submit()
                 coordinator.popToRoot()
             }
         }, label: {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.appPrimary)
+                .fill(viewModel.isEnable ? Color.appPrimary : Color.appPrimary.opacity(0.5))
                 .frame(height: 48)
                 .padding(.horizontal, 20)
                 .overlay {
                     Text("提交").font(.body.weight(.bold))
                         .foregroundStyle(.white)
                 }
+                .animation(.easeInOut, value: viewModel.isEnable)
         })
+        .disabled(!viewModel.isEnable)
     }
     
     @State var showDatePicker: Bool = false

@@ -18,6 +18,9 @@
 		F8341DEF2E1FD53900328BF8 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE82E1FD53900328BF8 /* RecordingView.swift */; };
 		F8341DF02E1FD53900328BF8 /* RecordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341DE92E1FD53900328BF8 /* RecordListView.swift */; };
 		F8341DF12E1FD53900328BF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8341DE52E1FD53900328BF8 /* Assets.xcassets */; };
+		F84A60DF2E25169700744BE9 /* SinceLastTimeUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84A60DE2E25169700744BE9 /* SinceLastTimeUseCaseType.swift */; };
+		F84A60E12E2516D400744BE9 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84A60E02E2516D400744BE9 /* Frequency.swift */; };
+		F84A60E32E251CC400744BE9 /* FrequencyUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84A60E22E251CC400744BE9 /* FrequencyUseCaseType.swift */; };
 		F86F6B8B2E2005FB00D8BC3D /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */; };
 		F885FFAB2E24B7CF00D32638 /* TodayAmountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAA2E24B7CF00D32638 /* TodayAmountUseCase.swift */; };
 		F885FFAD2E24B93300D32638 /* TodayTimesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAC2E24B93300D32638 /* TodayTimesUseCase.swift */; };
@@ -56,6 +59,9 @@
 		F8341DE72E1FD53900328BF8 /* Pee_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pee_iOSApp.swift; sourceTree = "<group>"; };
 		F8341DE82E1FD53900328BF8 /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		F8341DE92E1FD53900328BF8 /* RecordListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListView.swift; sourceTree = "<group>"; };
+		F84A60DE2E25169700744BE9 /* SinceLastTimeUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastTimeUseCaseType.swift; sourceTree = "<group>"; };
+		F84A60E02E2516D400744BE9 /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
+		F84A60E22E251CC400744BE9 /* FrequencyUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyUseCaseType.swift; sourceTree = "<group>"; };
 		F85CCEF92E1E258000909F0A /* Pee-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pee-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85CCF062E1E258300909F0A /* Pee-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pee-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85CCF102E1E258300909F0A /* Pee-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pee-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,7 @@
 		F8337F1C2E20BA97006FC08D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F84A60E02E2516D400744BE9 /* Frequency.swift */,
 				F8337F1D2E20BAE1006FC08D /* RecordModel.swift */,
 			);
 			path = Model;
@@ -216,6 +223,8 @@
 		F885FFA92E24B7BE00D32638 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				F84A60E22E251CC400744BE9 /* FrequencyUseCaseType.swift */,
+				F84A60DE2E25169700744BE9 /* SinceLastTimeUseCaseType.swift */,
 				F885FFB02E24D1B600D32638 /* UrineServiceful.swift */,
 				F885FFAE2E24BA4700D32638 /* TodayPerIntervalUseCase.swift */,
 				F885FFAC2E24B93300D32638 /* TodayTimesUseCase.swift */,
@@ -381,12 +390,15 @@
 			files = (
 				F885FFB32E24D1BC00D32638 /* HomeViewModel.swift in Sources */,
 				F8341DEB2E1FD53900328BF8 /* Record.swift in Sources */,
+				F84A60E32E251CC400744BE9 /* FrequencyUseCaseType.swift in Sources */,
 				F88F191D2E21F2C900180E06 /* RecordCoordinator.swift in Sources */,
+				F84A60DF2E25169700744BE9 /* SinceLastTimeUseCaseType.swift in Sources */,
 				F86F6B8B2E2005FB00D8BC3D /* RecordViewModel.swift in Sources */,
 				F88F191B2E21F2BC00180E06 /* Route.swift in Sources */,
 				F8337F1E2E20BAE1006FC08D /* RecordModel.swift in Sources */,
 				F8341DEC2E1FD53900328BF8 /* RecordRepository.swift in Sources */,
 				F8341DED2E1FD53900328BF8 /* ContentView.swift in Sources */,
+				F84A60E12E2516D400744BE9 /* Frequency.swift in Sources */,
 				F8337F5D2E20EDD5006FC08D /* DateExtensions.swift in Sources */,
 				F8337F202E20BC37006FC08D /* RecordListViewModel.swift in Sources */,
 				F885FFAB2E24B7CF00D32638 /* TodayAmountUseCase.swift in Sources */,

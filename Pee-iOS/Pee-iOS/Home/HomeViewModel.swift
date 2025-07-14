@@ -18,6 +18,8 @@ class HomeViewModel: ObservableObject {
     
     init(service: UrineServiceful) {
         self.service = service
+        let now = Date.endOfToday
+        let calendar = Calendar.current
     }
     
     func fetchData() async throws {
