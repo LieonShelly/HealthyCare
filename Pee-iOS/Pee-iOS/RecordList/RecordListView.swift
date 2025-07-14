@@ -92,7 +92,7 @@ struct RecordListView: View {
                 .fill(Color.backgroundCard)
         )
         .onTapGesture {
-            coordinator.push(RecordRoute.recording(nil))
+            coordinator.push(RecordRoute.recording(record))
         }
     }
     

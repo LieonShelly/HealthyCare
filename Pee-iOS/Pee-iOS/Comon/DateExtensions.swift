@@ -15,4 +15,13 @@ extension Date {
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: self)
     }
+    
+   static var startOfToday: Date {
+        let calendar = Calendar.current
+       return calendar.startOfDay(for: Date())
+    }
+    
+   static var endOfToday: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
+    }
 }

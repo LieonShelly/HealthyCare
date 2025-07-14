@@ -11,15 +11,15 @@ import SwiftUI
 class RecordCoordinator: ObservableObject, Coordinator {
     @Published var path = NavigationPath()
     @Published var modal: RecordRoute? = nil
+    private let service: UrineServiceful
+    
+    init(service: UrineServiceful) {
+        self.service = service
+    }
     
     func push(_ route: any Route) {
         guard let route = route as? RecordRoute else { return }
-        switch route {
-        case let .recording(record):
-            path.append(RecordRoute.recording(record))
-        case .recordList:
-            path.append(RecordRoute.recordList)
-        }
+        path.append(route)
     }
     
     func present(_ route: any Route) {
@@ -41,7 +41,9 @@ class RecordCoordinator: ObservableObject, Coordinator {
             if let record {
                 viewModel.update(record)
             }
-            return AnyView(RecordingView(viewModel: RecordViewModel( repository: .init())))
+            return AnyView(RecordingView(viewModel: viewModel))
+        case .todayHome:
+            return AnyView(ContentView(viewModel: HomeViewModel(service: service)))
         }
     }
 }

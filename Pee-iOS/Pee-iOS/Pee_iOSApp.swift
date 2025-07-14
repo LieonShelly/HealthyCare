@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct Pee_iOSApp: App {
-    @StateObject private var coordinator = RecordCoordinator()
+    @StateObject private var coordinator = RecordCoordinator(service: UrineService(respository: RecordRepository()))
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            coordinator.view(for: RecordRoute.todayHome)
         }
         .environmentObject(coordinator)
     }

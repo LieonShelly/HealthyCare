@@ -8,15 +8,19 @@
 import RealmSwift
 import Foundation
 
-class RecordRepository {
+protocol RecordRepositoryType {
+    func fetchRecods(from: Date, to: Date) async throws -> [RecordModel]
+}
+
+class RecordRepository: RecordRepositoryType {
     
-    func fetchRecods() async throws -> [RecordModel] {
+    func fetchRecods(from: Date = .startOfToday, to: Date = .endOfToday) async throws -> [RecordModel] {
         let dataTask: Task<[RecordModel], any Error> = Task.detached {
             logThread()
             let realm = try Realm()
             let data = realm.objects(Record.self)
+                .where { $0.date >= from && $0.date < to }
                 .sorted(by: { $0.date > $1.date })
-                .prefix(20)
                 .map {
                     RecordModel(id: $0.id,
                                 date: $0.date,

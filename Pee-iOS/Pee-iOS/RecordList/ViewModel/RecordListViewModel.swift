@@ -9,7 +9,6 @@ import Combine
 import SwiftData
 import Foundation
 
-
 final class RecordListViewModel: ObservableObject {
     @MainActor @Published var isLoading: Bool = false
     @MainActor @Published var list: [RecordModel] = []
@@ -19,11 +18,6 @@ final class RecordListViewModel: ObservableObject {
     
     init(repository: RecordRepository) {
         self.repository = repository
-
-    }
-    
-    deinit {
-        print("deinit-RecordListViewModel")
     }
     
     func fetch() async throws {

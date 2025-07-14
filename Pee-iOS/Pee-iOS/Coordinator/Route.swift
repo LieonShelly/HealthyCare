@@ -15,6 +15,7 @@ enum RecordRoute: Route {
     }
     case recording(_ record: RecordModel?)
     case recordList
+    case todayHome
 }
 
 protocol Coordinator {

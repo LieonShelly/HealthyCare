@@ -190,7 +190,7 @@ struct RecordingView: View {
         Button(action: {
             Task {
                 try? await viewModel.submit()
-                coordinator.present(RecordRoute.recordList)
+                coordinator.dismiss()
             }
         }, label: {
             RoundedRectangle(cornerRadius: 12)

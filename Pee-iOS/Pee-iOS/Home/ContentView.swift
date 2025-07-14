@@ -11,11 +11,11 @@ import SwiftData
 struct ContentView: View {
     @State private var showRecording: Bool = false
     @State private var showList: Bool = false
-    @StateObject private var viewModel: RecordViewModel
+    @StateObject private var viewModel: HomeViewModel
     @EnvironmentObject private var coordinator: RecordCoordinator
     
-    init() {
-        self._viewModel = .init(wrappedValue: .init(repository: RecordRepository()))
+    init(viewModel: HomeViewModel) {
+        self._viewModel = .init(wrappedValue: viewModel)
     }
     
     var body: some View {
@@ -30,14 +30,16 @@ struct ContentView: View {
                     .padding(.horizontal, 20)
                 }
                 addBtn
-                Rectangle()
-                    .fill(.textPrimary)
-                    .frame(width: 50, height: 50)
-                    .rotationEffect(viewModel.isLoading ? .degrees(0) : .degrees(100))
-                    .opacity(viewModel.showLoading ? 1 : 0)
-              
             }
-            .animation(.easeInOut.repeatForever(autoreverses: true), value: viewModel.isLoading)
+            .onAppear(perform: {
+                Task.detached {
+                    do {
+                      try await viewModel.fetchData()
+                    } catch {
+                        
+                    }
+                }
+            })
             .sheet(item: $coordinator.modal) { route in
                 coordinator.view(for: route)
             }
@@ -54,10 +56,10 @@ struct ContentView: View {
                 alignment: .center,
                 spacing: 20
             ) {
-                cardView(iconName: "", title: "排尿次数", subTitle: "4次")
-                cardView(iconName: "", title: "总尿量", subTitle: "500 ml")
-                cardView(iconName: "", title: "夜间次数", subTitle: "4次")
-                cardView(iconName: "", title: "平均间隔", subTitle: "1小时")
+                cardView(iconName: "", title: "排尿次数", subTitle: "\(viewModel.times)次")
+                cardView(iconName: "", title: "总尿量", subTitle: "\(viewModel.amount) ml")
+                cardView(iconName: "", title: "夜间次数", subTitle: "NA次")
+                cardView(iconName: "", title: "平均间隔", subTitle: "\(viewModel.averageIntervals)s")
             }
         }, header: {
             VStack(spacing: .zero) {
@@ -79,7 +81,7 @@ struct ContentView: View {
     
     var addBtn: some View {
         Button {
-            coordinator.present(RecordRoute.recording(nil))
+            coordinator.push(RecordRoute.recording(nil))
         } label: {
             RoundedRectangle(cornerRadius: 25)
                 .fill(Color.appPrimary)
@@ -131,8 +133,7 @@ struct ContentView: View {
 
     }
 }
-
-#Preview {
-    ContentView()
-}
-
+//
+//#Preview {
+//    ContentView()
+//}
