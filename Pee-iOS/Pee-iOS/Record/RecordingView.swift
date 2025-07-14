@@ -189,8 +189,8 @@ struct RecordingView: View {
     var confirmBtn: some View {
         Button(action: {
             Task {
-                try? await viewModel.submit()
-                coordinator.dismiss()
+//                try? await viewModel.submit()
+                coordinator.popToRoot()
             }
         }, label: {
             RoundedRectangle(cornerRadius: 12)

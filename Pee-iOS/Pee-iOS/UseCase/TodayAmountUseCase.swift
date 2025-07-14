@@ -26,3 +26,25 @@ final class TodayAmountUseCase: TodayAmountUseCaseType {
     }
 }
 
+
+
+
+import Foundation
+
+protocol SinceLastTimeUseCaseType {
+    func execute() async throws -> Date
+}
+
+final class SinceLastTimeUseCase: SinceLastTimeUseCaseType {
+    private let repository: RecordRepositoryType
+    
+    init(repository: RecordRepositoryType) {
+        self.repository = repository
+    }
+    
+    func execute() async throws -> Date {
+        let record = try await repository.fetchRecods(from: .startOfToday, to: .endOfToday).first
+        guard let record else { return Date() }
+       return record.date
+    }
+}

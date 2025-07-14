@@ -13,6 +13,7 @@ protocol UrineServiceful {
     var todayAmountUseCase: TodayAmountUseCaseType { get }
     var todayTimesUseCase: TodayTimesUseCaseType { get }
     var todayAverageIntervalUseCase: TodayAverageIntervalUseCaseType { get }
+    var lastTimeUseCase: SinceLastTimeUseCaseType { get }
 }
 
 class UrineService: UrineServiceful {
@@ -28,6 +29,10 @@ class UrineService: UrineServiceful {
     
     lazy var todayAverageIntervalUseCase: any TodayAverageIntervalUseCaseType = {
         TodayAverageIntervalUseCase(repository: respository)
+    }()
+    
+    lazy var lastTimeUseCase: SinceLastTimeUseCaseType = {
+        SinceLastTimeUseCase(repository: respository)
     }()
     
     init(respository: RecordRepositoryType) {

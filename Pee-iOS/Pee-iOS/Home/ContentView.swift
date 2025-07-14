@@ -59,7 +59,7 @@ struct ContentView: View {
                 cardView(iconName: "", title: "排尿次数", subTitle: "\(viewModel.times)次")
                 cardView(iconName: "", title: "总尿量", subTitle: "\(viewModel.amount) ml")
                 cardView(iconName: "", title: "夜间次数", subTitle: "NA次")
-                cardView(iconName: "", title: "平均间隔", subTitle: "\(viewModel.averageIntervals)s")
+                cardView(iconName: "", title: "平均间隔", subTitle: "\(viewModel.averageIntervals)")
             }
         }, header: {
             VStack(spacing: .zero) {
@@ -70,7 +70,7 @@ struct ContentView: View {
                         coordinator.push(RecordRoute.recordList)
                     }
 
-                Text("距离上次排尿: 1小时20分")
+                Text("距离上次排尿: \(viewModel.sinceLastTime)")
                     .font(.callout)
                     .foregroundStyle(.textSecondary)
                     .padding(.top, 10)

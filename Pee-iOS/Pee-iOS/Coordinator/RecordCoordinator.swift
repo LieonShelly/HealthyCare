@@ -46,4 +46,12 @@ class RecordCoordinator: ObservableObject, Coordinator {
             return AnyView(ContentView(viewModel: HomeViewModel(service: service)))
         }
     }
+    
+    func pop() {
+        path.removeLast()
+    }
+    
+    func popToRoot() {
+        path.removeLast(path.count)
+    }
 }

@@ -24,4 +24,32 @@ extension Date {
    static var endOfToday: Date {
         return Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
     }
+    
+    var formattedDuration: String {
+        let intervals = Date().timeIntervalSince1970 - self.timeIntervalSince1970
+       return RecordFormatter.formattedDuration(intervals)
+    }
+}
+
+
+struct RecordFormatter {
+    
+    static func formattedDuration(_ seconds: TimeInterval) -> String {
+        let intervals = seconds
+        let hours = Int(intervals / 3600)
+        let minutes = Int(intervals.truncatingRemainder(dividingBy: 3600) / 60)
+        var formattedDuration = ""
+        switch true {
+        case intervals < 3600:
+            formattedDuration = "\(minutes) " + "分钟"
+        case intervals >= 3600 && intervals < 360_000:
+            let hourStr = "\(hours) " + "小时"
+            let minuteStr = String(format: "%02d", minutes) + "分钟"
+            formattedDuration = hourStr + " " + minuteStr
+        default:
+            formattedDuration = "\(hours)" + "小时"
+        }
+        
+        return formattedDuration
+    }
 }

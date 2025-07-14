@@ -22,6 +22,8 @@ protocol Coordinator {
     func push(_ route: any Route)
     func present(_ route: any Route)
     func dismiss()
+    func pop()
+    func popToRoot()
     
     
     func view(for route: any Route) -> AnyView
