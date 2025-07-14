@@ -19,7 +19,7 @@ final class TodayTimesUseCase: TodayTimesUseCaseType {
     }
     
     func execute() async throws -> Int {
-        let records = try await repository.fetchRecods(from: .startOfToday, to: .endOfToday)
+        let records = try await repository.fetchRecords(from: .startOfToday, to: .endOfToday)
         return records.count
     }
 }

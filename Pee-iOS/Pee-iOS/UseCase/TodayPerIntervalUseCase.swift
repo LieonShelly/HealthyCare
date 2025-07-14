@@ -19,7 +19,7 @@ final class TodayAverageIntervalUseCase: TodayAverageIntervalUseCaseType {
     }
     
     func execute() async throws -> Double {
-        let records = try await repository.fetchRecods(from: .startOfToday, to: .endOfToday).sorted(by: { $0.date < $1.date})
+        let records = try await repository.fetchRecords(from: .startOfToday, to: .endOfToday).sorted(by: { $0.date < $1.date})
         guard records.count > 1 else {
             return 0
         }

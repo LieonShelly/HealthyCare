@@ -24,7 +24,7 @@ final class FrequencyUseCase: FrequencyUseCaseType {
         let now = Date.endOfToday
         let calendar = Calendar.current
         guard let pastSevenDay = calendar.date(byAdding: .day, value: -7, to: now) else { return [] }
-        let records = try await repository.fetchRecods(from: pastSevenDay, to: pastSevenDay)
+        let records = try await repository.fetchRecords(from: pastSevenDay, to: now)
         var frequencies: [Frequency] = []
         for index in (0 ..< 7) {
             guard let today = calendar.date(byAdding: .day, value: -index, to: now) else { continue }

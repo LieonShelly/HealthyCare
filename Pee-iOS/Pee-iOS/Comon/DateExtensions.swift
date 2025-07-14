@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date: Comparable {
+extension Date {
     
     var hhmm: String {
         let dateFormatter = DateFormatter()
@@ -15,6 +15,22 @@ extension Date: Comparable {
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: self)
     }
+    
+    var MDotD: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "zh_CN")
+        formatter.dateFormat = "M.d"
+        return formatter.string(from: self)
+    }
+    
+    var week: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "zh_CN")
+        formatter.dateFormat = "EEE"
+        return formatter.string(from: self)
+
+    }
+    
     
    static var startOfToday: Date {
         let calendar = Calendar.current

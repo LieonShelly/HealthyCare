@@ -51,7 +51,7 @@ final class RecordViewModel: ObservableObject {
             isLoading = true
             showLoading = true
         }
-        guard let _ = try? await self.repository.fetchRecods() else { return }
+        guard let _ = try? await self.repository.fetchRecords() else { return }
         await MainActor.run {
             isLoading = false
             showLoading = false

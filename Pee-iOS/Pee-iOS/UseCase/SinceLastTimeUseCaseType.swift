@@ -19,7 +19,7 @@ final class SinceLastTimeUseCase: SinceLastTimeUseCaseType {
     }
     
     func execute() async throws -> Date {
-        let record = try await repository.fetchRecods(from: .startOfToday, to: .endOfToday).first
+        let record = try await repository.fetchRecords(from: .startOfToday, to: .endOfToday).first
         guard let record else { return Date() }
        return record.date
     }

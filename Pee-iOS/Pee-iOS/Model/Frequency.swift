@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Frequency: Sendable {
-    let times: Int
+struct Frequency: Sendable, Equatable {
+    var times: Int
     let date: Date
 }
 

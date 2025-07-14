@@ -5,8 +5,6 @@
 //  Created by Renjun Li on 2025/7/14.
 //
 
-
-
 import Foundation
 
 protocol UrineServiceful {
@@ -14,6 +12,7 @@ protocol UrineServiceful {
     var todayTimesUseCase: TodayTimesUseCaseType { get }
     var todayAverageIntervalUseCase: TodayAverageIntervalUseCaseType { get }
     var lastTimeUseCase: SinceLastTimeUseCaseType { get }
+    var frequencies: FrequencyUseCaseType { get }
 }
 
 class UrineService: UrineServiceful {
@@ -33,6 +32,10 @@ class UrineService: UrineServiceful {
     
     lazy var lastTimeUseCase: SinceLastTimeUseCaseType = {
         SinceLastTimeUseCase(repository: respository)
+    }()
+    
+    lazy var frequencies: any FrequencyUseCaseType = {
+        FrequencyUseCase(repository: respository)
     }()
     
     init(respository: RecordRepositoryType) {

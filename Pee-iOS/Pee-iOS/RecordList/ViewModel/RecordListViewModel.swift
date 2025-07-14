@@ -24,7 +24,7 @@ final class RecordListViewModel: ObservableObject {
         await  MainActor.run {
             isLoading = true
         }
-        let list = try await self.repository.fetchRecods()
+        let list = try await self.repository.fetchRecords()
         await  MainActor.run {
             isLoading = false
             self.list = list

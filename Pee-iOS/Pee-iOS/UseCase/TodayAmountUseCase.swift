@@ -19,7 +19,7 @@ final class TodayAmountUseCase: TodayAmountUseCaseType {
     }
     
     func execute() async throws -> Int {
-        let records = try await repository.fetchRecods(from: .startOfToday, to: .endOfToday)
+        let records = try await repository.fetchRecords(from: .startOfToday, to: .endOfToday)
         return records.reduce(0) { partialResult, record in
             return Int(partialResult + Int(record.amount))
         }

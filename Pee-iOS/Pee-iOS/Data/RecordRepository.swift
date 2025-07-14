@@ -9,12 +9,12 @@ import RealmSwift
 import Foundation
 
 protocol RecordRepositoryType {
-    func fetchRecods(from: Date, to: Date) async throws -> [RecordModel]
+    func fetchRecords(from: Date, to: Date) async throws -> [RecordModel]
 }
 
 class RecordRepository: RecordRepositoryType {
     
-    func fetchRecods(from: Date = .startOfToday, to: Date = .endOfToday) async throws -> [RecordModel] {
+    func fetchRecords(from: Date = .startOfToday, to: Date = .endOfToday) async throws -> [RecordModel] {
         let dataTask: Task<[RecordModel], any Error> = Task.detached {
             logThread()
             let realm = try Realm()
