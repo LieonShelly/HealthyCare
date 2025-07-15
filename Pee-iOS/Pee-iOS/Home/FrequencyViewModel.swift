@@ -18,7 +18,7 @@ class FrequencyViewModel: ObservableObject {
     
     func fetchData() async throws {
         await MainActor.run {
-            let now = Date.endOfToday
+            let now = Date()
             let calendar = Calendar.current
             var initFrequencies: [Frequency] = []
             for index in (0 ..< 7) {

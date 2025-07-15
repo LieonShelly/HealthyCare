@@ -26,7 +26,7 @@
 		F86F6B8B2E2005FB00D8BC3D /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */; };
 		F885FFAB2E24B7CF00D32638 /* TodayAmountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAA2E24B7CF00D32638 /* TodayAmountUseCase.swift */; };
 		F885FFAD2E24B93300D32638 /* TodayTimesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAC2E24B93300D32638 /* TodayTimesUseCase.swift */; };
-		F885FFAF2E24BA4700D32638 /* TodayPerIntervalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAE2E24BA4700D32638 /* TodayPerIntervalUseCase.swift */; };
+		F885FFAF2E24BA4700D32638 /* TodayAverageIntervalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFAE2E24BA4700D32638 /* TodayAverageIntervalUseCase.swift */; };
 		F885FFB12E24D1B600D32638 /* UrineServiceful.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFB02E24D1B600D32638 /* UrineServiceful.swift */; };
 		F885FFB32E24D1BC00D32638 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F885FFB22E24D1BC00D32638 /* HomeViewModel.swift */; };
 		F88F191B2E21F2BC00180E06 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F191A2E21F2BC00180E06 /* Route.swift */; };
@@ -72,7 +72,7 @@
 		F86F6B8A2E2005FB00D8BC3D /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		F885FFAA2E24B7CF00D32638 /* TodayAmountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAmountUseCase.swift; sourceTree = "<group>"; };
 		F885FFAC2E24B93300D32638 /* TodayTimesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTimesUseCase.swift; sourceTree = "<group>"; };
-		F885FFAE2E24BA4700D32638 /* TodayPerIntervalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPerIntervalUseCase.swift; sourceTree = "<group>"; };
+		F885FFAE2E24BA4700D32638 /* TodayAverageIntervalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAverageIntervalUseCase.swift; sourceTree = "<group>"; };
 		F885FFB02E24D1B600D32638 /* UrineServiceful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrineServiceful.swift; sourceTree = "<group>"; };
 		F885FFB22E24D1BC00D32638 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F88F191A2E21F2BC00180E06 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 				F84A60E22E251CC400744BE9 /* FrequencyUseCaseType.swift */,
 				F84A60DE2E25169700744BE9 /* SinceLastTimeUseCaseType.swift */,
 				F885FFB02E24D1B600D32638 /* UrineServiceful.swift */,
-				F885FFAE2E24BA4700D32638 /* TodayPerIntervalUseCase.swift */,
+				F885FFAE2E24BA4700D32638 /* TodayAverageIntervalUseCase.swift */,
 				F885FFAC2E24B93300D32638 /* TodayTimesUseCase.swift */,
 				F885FFAA2E24B7CF00D32638 /* TodayAmountUseCase.swift */,
 			);
@@ -412,7 +412,7 @@
 				F885FFAB2E24B7CF00D32638 /* TodayAmountUseCase.swift in Sources */,
 				F8341DEE2E1FD53900328BF8 /* Pee_iOSApp.swift in Sources */,
 				F885FFB12E24D1B600D32638 /* UrineServiceful.swift in Sources */,
-				F885FFAF2E24BA4700D32638 /* TodayPerIntervalUseCase.swift in Sources */,
+				F885FFAF2E24BA4700D32638 /* TodayAverageIntervalUseCase.swift in Sources */,
 				F8341DEF2E1FD53900328BF8 /* RecordingView.swift in Sources */,
 				F885FFAD2E24B93300D32638 /* TodayTimesUseCase.swift in Sources */,
 				F8341DF02E1FD53900328BF8 /* RecordListView.swift in Sources */,

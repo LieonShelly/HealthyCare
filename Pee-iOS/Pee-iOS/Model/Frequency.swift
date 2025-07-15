@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Frequency: Sendable, Equatable {
+struct Frequency: Sendable, Equatable, Identifiable {
+    var id: UUID = UUID()
+    
     var times: Int
     let date: Date
 }

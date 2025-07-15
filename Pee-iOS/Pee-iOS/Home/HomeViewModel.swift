@@ -23,6 +23,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchData() async throws {
+//       try await inject()
         let amount =  try await service.todayAmountUseCase.execute()
         let times =  try await service.todayTimesUseCase.execute()
         let averageIntervals =  try await service.todayAverageIntervalUseCase.execute()
@@ -36,5 +37,29 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    
+    func inject() async throws {
+        let repository = RecordRepository()
+        let now = Date.startOfToday
+        let calendar = Calendar.current
+        for index in (0 ..< 7) {
+            guard let today = calendar.date(byAdding: .day, value: -index, to: now) else { continue }
+            
+            for _ in 0 ..< Int.random(in: 10 ... 20) {
+                let hours = Int.random(in: 0 ... 5)
+                guard let date = calendar.date(byAdding: .hour, value: hours, to: today) else {
+                    continue
+                }
+                let record = RecordModel(
+                    date: date,
+                    amount: Double.random(in: 20 ... 50),
+                    duration:  Double.random(in: 20 ... 50),
+                    color: .normal,
+                    comfortDegress: .normal,
+                    presureDegress: .normal,
+                    note: "note"
+                )
+                try await repository.add(record: record)
+            }
+        }
+    }
 }

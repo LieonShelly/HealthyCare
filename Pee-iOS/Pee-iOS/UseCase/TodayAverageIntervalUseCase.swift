@@ -30,3 +30,4 @@ final class TodayAverageIntervalUseCase: TodayAverageIntervalUseCaseType {
         return sum / Double(intervals.count)
     }
 }
+

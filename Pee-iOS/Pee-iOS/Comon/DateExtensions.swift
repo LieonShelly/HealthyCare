@@ -80,14 +80,14 @@ struct RecordFormatter {
         let minutes = Int(intervals.truncatingRemainder(dividingBy: 3600) / 60)
         var formattedDuration = ""
         switch true {
-        case intervals < 3600:
+        case intervals < 3600 && intervals >= 60:
             formattedDuration = "\(minutes) " + "分钟"
         case intervals >= 3600 && intervals < 360_000:
             let hourStr = "\(hours) " + "小时"
             let minuteStr = String(format: "%02d", minutes) + "分钟"
             formattedDuration = hourStr + " " + minuteStr
         default:
-            formattedDuration = "\(hours)" + "小时"
+            formattedDuration = "\(Int(intervals))" + "秒"
         }
         
         return formattedDuration

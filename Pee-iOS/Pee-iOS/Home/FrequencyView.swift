@@ -21,14 +21,16 @@ struct FrequencyView: View {
         frequencyView
     }
     
-    var frequencyView: some View {
+    @ViewBuilder  var frequencyView: some View {
+        let dates = frequencies.map { $0.date }
         Chart(frequencies, id: \.date) { frequency in
             BarMark(
-                x: .value("Date", frequency.date),
+                x: .value("Date", frequency.date, unit: .day),
                 y: .value("Times", frequency.times),
-                width: 30,
+                width: .automatic,
                 height: 30
             )
+            .interpolationMethod(.catmullRom)
             .foregroundStyle(selectedDate == frequency.date ? Color.appPrimary.gradient : Color.appPrimary.opacity(0.8).gradient)
             .annotation(position: .top) {
                 Text("\(frequency.times)")
@@ -40,8 +42,10 @@ struct FrequencyView: View {
             }
         }
         .chartXAxis(content: {
-            AxisMarks(values: viewModel.frequencies.map { $0.date }) { value in
-                AxisValueLabel {
+            AxisMarks(preset: .automatic, position: .automatic, values: dates) { value in
+                AxisTick()
+                AxisGridLine()
+                AxisValueLabel(centered: false) {
                     if let date = value.as(Date.self) {
                         VStack {
                             Text(date.week)
@@ -49,6 +53,7 @@ struct FrequencyView: View {
                         }
                     }
                 }
+                .offset(x: 5)
             }
         })
         .chartOverlay(content: { proxy in
@@ -88,5 +93,6 @@ struct FrequencyView: View {
                 }
             }
         }
+      
     }
 }
