@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F80034902E25EFAE00ABC395 /* FrequencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F800348F2E25EFAE00ABC395 /* FrequencyViewModel.swift */; };
+		F80034922E25EFBB00ABC395 /* FrequencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80034912E25EFBB00ABC395 /* FrequencyView.swift */; };
 		F8337F1E2E20BAE1006FC08D /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F1D2E20BAE1006FC08D /* RecordModel.swift */; };
 		F8337F202E20BC37006FC08D /* RecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8337F1F2E20BC37006FC08D /* RecordListViewModel.swift */; };
 		F8337F582E20DE30006FC08D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8337F572E20DE30006FC08D /* RealmSwift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F800348F2E25EFAE00ABC395 /* FrequencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewModel.swift; sourceTree = "<group>"; };
+		F80034912E25EFBB00ABC395 /* FrequencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyView.swift; sourceTree = "<group>"; };
 		F8337F1D2E20BAE1006FC08D /* RecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
 		F8337F1F2E20BC37006FC08D /* RecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewModel.swift; sourceTree = "<group>"; };
 		F8337F5C2E20EDD5006FC08D /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		F8337F592E20EA2B006FC08D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F80034912E25EFBB00ABC395 /* FrequencyView.swift */,
+				F800348F2E25EFAE00ABC395 /* FrequencyViewModel.swift */,
 				F885FFB22E24D1BC00D32638 /* HomeViewModel.swift */,
 				F8341DE62E1FD53900328BF8 /* ContentView.swift */,
 			);
@@ -399,8 +405,10 @@
 				F8341DEC2E1FD53900328BF8 /* RecordRepository.swift in Sources */,
 				F8341DED2E1FD53900328BF8 /* ContentView.swift in Sources */,
 				F84A60E12E2516D400744BE9 /* Frequency.swift in Sources */,
+				F80034922E25EFBB00ABC395 /* FrequencyView.swift in Sources */,
 				F8337F5D2E20EDD5006FC08D /* DateExtensions.swift in Sources */,
 				F8337F202E20BC37006FC08D /* RecordListViewModel.swift in Sources */,
+				F80034902E25EFAE00ABC395 /* FrequencyViewModel.swift in Sources */,
 				F885FFAB2E24B7CF00D32638 /* TodayAmountUseCase.swift in Sources */,
 				F8341DEE2E1FD53900328BF8 /* Pee_iOSApp.swift in Sources */,
 				F885FFB12E24D1B600D32638 /* UrineServiceful.swift in Sources */,
