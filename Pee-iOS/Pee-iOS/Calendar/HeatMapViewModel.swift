@@ -14,12 +14,13 @@ struct HeatDay {
 }
 
 class HeatMapViewModel: ObservableObject {
-    @Published var weekdays: [String] = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     @Published var columns: [[HeatDay]] = []
-
+    let calendar: Calendar
     
     init() {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.firstWeekday = 1
+        
         var dateComponent = DateComponents()
         dateComponent.year = 2025
         dateComponent.month = 1
@@ -28,13 +29,11 @@ class HeatMapViewModel: ObservableObject {
         dateComponent.month = 12
         let endDate = calendar.date(from: dateComponent)!
         
+        self.calendar = calendar
         columns = generateHeatMap(from: startDate, to: endDate)
     }
     
     func generateHeatMap(from startDate: Date, to endDate: Date) -> [[ HeatDay]] {
-        var calendar = Calendar.current
-        calendar.firstWeekday = 1
-        
         var date = startDate
         var columns: [[HeatDay]] = []
         var currentColumn: [HeatDay] = []
@@ -53,5 +52,6 @@ class HeatMapViewModel: ObservableObject {
         }
         return columns
     }
+
 }
     

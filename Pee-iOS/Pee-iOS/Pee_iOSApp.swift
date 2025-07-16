@@ -13,7 +13,8 @@ struct Pee_iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            coordinator.view(for: RecordRoute.todayHome)
+            HeatMapView()
+                .padding()
         }
         .environmentObject(coordinator)
     }

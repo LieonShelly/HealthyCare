@@ -18,9 +18,9 @@ struct HeatMapView: View {
             HStack(alignment: .top, spacing: 4) {
                 ForEach(viewModel.columns.indices, id: \.self) { colIndex in
                     VStack(spacing: 4) {
-                        ForEach(0..<7, id: \.self) { row in
+                        ForEach(1 ... 7, id: \.self) { row in
                             let column = viewModel.columns[colIndex]
-                            if let day = column.first(where: { Calendar.current.component(.weekday, from: $0.date) == (row + 1)}) {
+                            if let day = column.first(where: { viewModel.calendar.component(.weekday, from: $0.date) == row}) {
                                 Rectangle()
                                     .fill(color(for: day.level))
                                     .frame(width: 12, height: 12)
