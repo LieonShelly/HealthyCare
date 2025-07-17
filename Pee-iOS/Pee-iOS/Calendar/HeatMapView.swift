@@ -16,11 +16,21 @@ struct HeatMapView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators:  false) {
             HStack(alignment: .top, spacing: 4) {
-                ForEach(viewModel.columns.indices, id: \.self) { colIndex in
+                ForEach(viewModel.columns, id: \.id) { column in
+                    if let monthDesc = column.firstDayInMonthDesc(viewModel.calendar) {
+                        Text("\(monthDesc)")
+                            .font(.caption2)
+                    } else {
+                        Color.red
+                        .frame(width: 12, height: 12)
+                    }
+                }
+            }
+            HStack(alignment: .top, spacing: 4) {
+                ForEach(viewModel.columns, id: \.id) { column in
                     VStack(spacing: 4) {
                         ForEach(1 ... 7, id: \.self) { row in
-                            let column = viewModel.columns[colIndex]
-                            if let day = column.first(where: { viewModel.calendar.component(.weekday, from: $0.date) == row}) {
+                            if let day = column.weekDays.first(where: { viewModel.calendar.component(.weekday, from: $0.date) == row}) {
                                 Rectangle()
                                     .fill(color(for: day.level))
                                     .frame(width: 12, height: 12)

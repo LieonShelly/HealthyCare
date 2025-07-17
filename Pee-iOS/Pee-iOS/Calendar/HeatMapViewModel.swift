@@ -13,8 +13,25 @@ struct HeatDay {
     let level: Int
 }
 
+struct HeatWeek {
+    let id = UUID()
+    var weekDays: [HeatDay] = []
+    
+    var isEmpty: Bool {
+        weekDays.isEmpty
+    }
+    
+    func firstDayInMonthDesc(_ calendar: Calendar) -> String? {
+        guard let day = weekDays.first(where: { calendar.component(.day, from: $0.date ) == 1 }) else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        return dateFormatter.string(from: day.date)
+    }
+    
+}
+
 class HeatMapViewModel: ObservableObject {
-    @Published var columns: [[HeatDay]] = []
+    @Published var columns: [HeatWeek] = []
     let calendar: Calendar
     
     init() {
@@ -27,31 +44,32 @@ class HeatMapViewModel: ObservableObject {
         let startDate = calendar.date(from: dateComponent)!
         
         dateComponent.month = 12
+        dateComponent.day = 31
         let endDate = calendar.date(from: dateComponent)!
         
         self.calendar = calendar
         columns = generateHeatMap(from: startDate, to: endDate)
     }
     
-    func generateHeatMap(from startDate: Date, to endDate: Date) -> [[ HeatDay]] {
+    func generateHeatMap(from startDate: Date, to endDate: Date) -> [HeatWeek] {
         var date = startDate
-        var columns: [[HeatDay]] = []
-        var currentColumn: [HeatDay] = []
+        var columns: [HeatWeek] = []
+        var currentWeek: HeatWeek = .init()
         while date <= endDate {
             let weekday = calendar.component(.weekday, from: date)
-            if weekday == calendar.firstWeekday && !currentColumn.isEmpty {
-                columns.append(currentColumn)
-                currentColumn = []
+            if weekday == calendar.firstWeekday && !currentWeek.isEmpty {
+                columns.append(currentWeek)
+                currentWeek = .init()
             }
-            currentColumn.append(HeatDay(date: date, level: Int.random(in: 0..<4)))
+            currentWeek.weekDays.append(HeatDay(date: date, level: Int.random(in: 0..<4)))
             date = calendar.date(byAdding: .day, value: 1, to: date)!
         }
         
-        if !currentColumn.isEmpty {
-            columns.append(currentColumn)
+        if !currentWeek.isEmpty {
+            columns.append(currentWeek)
         }
         return columns
     }
 
 }
-    
+
