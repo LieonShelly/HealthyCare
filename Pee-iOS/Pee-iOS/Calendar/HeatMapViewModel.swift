@@ -30,8 +30,16 @@ struct HeatWeek {
     
 }
 
+struct MonthRange {
+    let label: String
+    let columnStart: Int
+    let columnCount: Int
+}
+
 class HeatMapViewModel: ObservableObject {
     @Published var columns: [HeatWeek] = []
+    @Published var months: [MonthRange] = []
+    
     let calendar: Calendar
     
     init() {
@@ -49,6 +57,7 @@ class HeatMapViewModel: ObservableObject {
         
         self.calendar = calendar
         columns = generateHeatMap(from: startDate, to: endDate)
+        months = caculateMonthRanges(columns: columns)
     }
     
     func generateHeatMap(from startDate: Date, to endDate: Date) -> [HeatWeek] {
@@ -71,5 +80,39 @@ class HeatMapViewModel: ObservableObject {
         return columns
     }
 
+    func caculateMonthRanges(columns: [HeatWeek] ) -> [MonthRange] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        
+        var result: [MonthRange] = []
+        var currentMonth: String? = nil
+        var startIndex: Int = 0
+        var count: Int = 0
+        
+        for (index, col) in columns.enumerated() {
+            guard let day = col.weekDays.first?.date else { continue }
+            let label = formatter.string(from: day)
+            if currentMonth == nil {
+                currentMonth = label
+                startIndex = index
+                count = 1
+            } else if currentMonth == label {
+                count += 1
+            } else {
+                result.append(
+                    MonthRange(label: currentMonth!, columnStart: startIndex, columnCount: count)
+                )
+                currentMonth = label
+                startIndex = index
+                count = 1
+            }
+        }
+        if let currentMonth {
+            result.append(
+                MonthRange(label: currentMonth, columnStart: startIndex, columnCount: count)
+            )
+        }
+        return result
+    }
 }
 

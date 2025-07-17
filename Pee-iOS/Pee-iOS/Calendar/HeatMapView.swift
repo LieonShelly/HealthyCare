@@ -15,36 +15,46 @@ struct HeatMapView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators:  false) {
-            HStack(alignment: .top, spacing: 4) {
-                ForEach(viewModel.columns, id: \.id) { column in
-                    if let monthDesc = column.firstDayInMonthDesc(viewModel.calendar) {
-                        Text("\(monthDesc)")
-                            .font(.caption2)
-                    } else {
-                        Color.red
-                        .frame(width: 12, height: 12)
-                    }
-                }
+            VStack {
+                monthView
+                heatMap
             }
-            HStack(alignment: .top, spacing: 4) {
-                ForEach(viewModel.columns, id: \.id) { column in
-                    VStack(spacing: 4) {
-                        ForEach(1 ... 7, id: \.self) { row in
-                            if let day = column.weekDays.first(where: { viewModel.calendar.component(.weekday, from: $0.date) == row}) {
-                                Rectangle()
-                                    .fill(color(for: day.level))
-                                    .frame(width: 12, height: 12)
-                            } else {
-                                Color.clear
-                                    .frame(width: 12, height: 12)
-                            }
+        }
+    }
+    
+    var monthView: some View {
+        HStack(spacing: 4) {
+            ForEach(viewModel.months, id: \.label) { month in
+                HStack {
+                    Text(month.label)
+                        .font(.caption)
+                    Spacer()
+                }
+                .frame(width: CGFloat(month.columnCount) * 12.0 + CGFloat(month.columnCount - 1) * 4.0)
+                .background(.red)
+            }
+        }
+    }
+    
+    var heatMap: some View {
+        HStack(alignment: .top, spacing: 4) {
+            ForEach(viewModel.columns, id: \.id) { column in
+                VStack(spacing: 4) {
+                    ForEach(1 ... 7, id: \.self) { row in
+                        if let day = column.weekDays.first(where: { viewModel.calendar.component(.weekday, from: $0.date) == row}) {
+                            Rectangle()
+                                .fill(color(for: day.level))
+                                .frame(width: 12, height: 12)
+                        } else {
+                            Color.clear
+                                .frame(width: 12, height: 12)
                         }
                     }
                 }
             }
         }
-        
     }
+    
     
     func color(for level: Int) -> Color {
         switch level {
