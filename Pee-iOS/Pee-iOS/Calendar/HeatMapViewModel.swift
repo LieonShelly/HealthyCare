@@ -15,6 +15,7 @@ struct HeatDay {
 
 struct HeatWeek {
     let id = UUID()
+    
     var weekDays: [HeatDay] = []
     
     var isEmpty: Bool {
@@ -39,7 +40,7 @@ struct MonthRange {
 class HeatMapViewModel: ObservableObject {
     @Published var columns: [HeatWeek] = []
     @Published var months: [MonthRange] = []
-    
+    @Published var weekdays: [String] = ["Mon", "Wed", "Fri"]
     let calendar: Calendar
     
     init() {
